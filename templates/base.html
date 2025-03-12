@@ -1,0 +1,25 @@
+Add Profile Link to Header
+Update your base template to include a link to the user's profile and edit profile page:
+
+html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website</title>
+    {% load static %}
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile_detail' user.id %}">Profile</a> |
+            <a href="{% url 'edit_profile' %}">Edit Profile</a> |
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

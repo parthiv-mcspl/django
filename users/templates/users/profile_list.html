@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profiles</title>
+    {% load static %}
+    <style>
+        body {
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h2 {
+            color: #ecf0f1;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #3498db;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+            border-color: #2980b9;
+        }
+
+        .profile-item {
+            display: inline-block;
+            text-align: center;
+            background: #1c1c1c;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-info {
+            margin-top: 10px;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        #search {
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 300px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            background: #34495e;
+            color: #ecf0f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: url('https://img.icons8.com/ios-filled/50/ffffff/search.png') no-repeat scroll 10px center;
+            padding-left: 40px;
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+
+        #search:focus {
+            background: #2c3e50;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            outline: none;
+        }
+
+        .search-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #2980b9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .edit-profile {
+            position: fixed;
+            top: 10px; /* Adjust this value to set vertical distance from the top */
+            right: 10px; /* Adjust this value to set horizontal distance from the right */
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .edit-profile-button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .edit-profile-button:hover {
+            background-color: #c0392b;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+        
+    </style>
+</head>
+<body>
+    <h2>User Profiles</h2>
+    <div>
+        <input type="text" id="search" placeholder="Search name, hobby">
+        <button class="search-button" onclick="searchProfiles()">Search</button>
+    </div>
+    <ul id="profile-list">
+        {% if profiles %}
+            {% for profile in profiles %}
+                <li class="profile-item">
+                    {% if profile.photo %}
+                        <a href="{% url 'profile_detail' profile.user.id %}"><img class="profile-img" src="{{ profile.photo.url }}" alt="{{ profile.user.username }}"></a>
+                    {% else %}
+                        <a href="{% url 'profile_detail' profile.user.id %}"><img class="profile-img" src="{% static 'default_user_photo.jpg' %}" alt="{{ profile.user.username }}"></a>
+                    {% endif %}
+                    <div class="profile-info">
+                        <span>{{ profile.user.username }}</span><br>
+                        {{ profile.hobby }}
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No profiles found.</p>
+        {% endif %}
+    </ul>
+    
+    {% if user.is_authenticated %}
+    <div class="edit-profile">
+        <button class="edit-profile-button" onclick="window.location.href='{% url 'edit_profile' user.id %}'">Edit Profile</button>
+    </div>
+{% endif %}
+
+
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            var searchQuery = this.value.toLowerCase();
+            var profiles = document.querySelectorAll('#profile-list li');
+            profiles.forEach(function(profile) {
+                var text = profile.textContent.toLowerCase();
+                profile.style.display = text.includes(searchQuery) ? '' : 'none';
+            });
+        });
+
+        function searchProfiles() {
+            var searchQuery = document.getElementById('search').value.toLowerCase();
+            var profiles = document.querySelectorAll('#profile-list li');
+            profiles.forEach(function(profile) {
+                var text = profile.textContent.toLowerCase();
+                profile.style.display = text.includes(searchQuery) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>User Profiles</title>
+    {% load static %}
+    <style>
+        body {
+            background-image: url('your-background-url.jpg'); /* Replace with your background image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid red;
+        }
+        .edit-profile {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .edit-profile span {
+            margin-left: 5px;
+            color: blue;
+            text-decoration: underline;
+        }
+        .profile-item {
+            display: inline-block;
+            text-align: center;
+            margin: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            width: 150px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .profile-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+        }
+        .profile-info {
+            margin-top: 10px;
+        }
+        #search {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 80%;
+            max-width: 200px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s;
+            background: url('https://img.icons8.com/ios-filled/50/000000/search.png') no-repeat scroll 7px 7px;
+            background-size: 20px 20px; /* Adjust the size as needed */
+            
+            padding-left: 35px;
+        }
+        #search:focus {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+        .search-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .search-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .edit-profile-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .edit-profile-button:hover {
+            background-color: darkblue;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h2>User Profiles</h2>
+    <div>
+        <input type="text" id="search" placeholder="Search name, hobby">
+        <button class="search-button" onclick="searchProfiles()">Search</button>
+    </div>
+    <ul id="profile-list">
+        {% if profiles %}
+            {% for profile in profiles %}
+                <li class="profile-item">
+                    {% if profile.photo %}
+                        <a href="{% url 'profile_detail' profile.user.id %}"><img class="profile-img" src="{{ profile.photo.url }}" alt="{{ profile.user.username }}"></a>
+                    {% else %}
+                        <a href="{% url 'profile_detail' profile.user.id %}"><img class="profile-img" src="{% static 'default_user_photo.jpg' %}" alt="{{ profile.user.username }}"></a>
+                    {% endif %}
+                    <div class="profile-info">
+                        <span>{{ profile.user.username }}</span><br>
+                        {{ profile.hobby }}
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No profiles found.</p>
+        {% endif %}
+    </ul>
+    
+    {% if user.is_authenticated %}
+        <div class="edit-profile">
+            <button class="edit-profile-button" onclick="window.location.href='{% url 'edit_profile' user.id %}'">Edit Profile</button>
+        </div>
+    {% endif %}
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            var searchQuery = this.value.toLowerCase();
+            var profiles = document.querySelectorAll('#profile-list li');
+            profiles.forEach(function(profile) {
+                var text = profile.textContent.toLowerCase();
+                profile.style.display = text.includes(searchQuery) ? '' : 'none';
+            });
+        });
+        function searchProfiles() {
+            var searchQuery = document.getElementById('search').value.toLowerCase();
+            var profiles = document.querySelectorAll('#profile-list li');
+            profiles.forEach(function(profile) {
+                var text = profile.textContent.toLowerCase();
+                profile.style.display = text.includes(searchQuery) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html> {% endcomment %}

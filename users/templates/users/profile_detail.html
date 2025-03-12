@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }}'s Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ecf0f1;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 300px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        h2 {
+            color: #ffffff;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #3498db;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.1);
+            border-color: #2980b9;
+        }
+        p {
+            font-size: 16px;
+            color: #bdc3c7;
+            margin: 10px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: linear-gradient(to right, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(to right, #218838, #28a745);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ profile.user.username }}'s Profile</h2>
+        <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}">
+        <p>Name: {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+        <p>Hobby: {{ profile.hobby }}</p>
+        <p>Detail: {{ profile.detail }}</p>
+        <button onclick="window.location.href='{% url 'send_collaboration_request' profile.user.id %}'">Collaborate</button>
+    </div>
+</body>
+</html>
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }}'s Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ profile.user.username }}'s Profile</h2>
+        <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}" style="width:100px;height:100px;">
+        <p>Name: {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+        <p>Hobby: {{ profile.hobby }}</p>
+        <p>Detail: {{ profile.detail }}</p>
+        <button onclick="window.location.href='{% url 'send_collaboration_request' profile.user.id %}'">Collaborate</button>
+    </div>
+</body>
+</html> {% endcomment %}
