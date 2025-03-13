@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-6w&3#f(igatr1lnx#k+85xb+r5kc!$fafo%vnu*!j1w$^uiecc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.varcel.app', '.now.sh']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -132,18 +132,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-   #HTTP SETTINGS
-SESSION_COKKIE_SECURE = True
-CSRF_COOKIE_SECURE = True 
-SECURE_SSL_REDIRECT = True
-
-  #HSTS SETTINGS
-SECURE_HSTS_SECONDS = 315360
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBOOMAINS = True
 
