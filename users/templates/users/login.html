@@ -3,109 +3,96 @@
 <head>
     <title>Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212; /* Dark background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .login-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        form {
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-            background-color: rgba(30, 30, 30, 0); /* Fully transparent at first */
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0); /* No shadow initially */
-            max-width: 300px; /* Reduced width */
-            width: 100%;
-            text-align: center;
-            opacity: 0; /* Invisible initially */
-            transform: scale(0.9); /* Shrunk slightly */
-            transition: all 2s ease-in-out; /* Smooth transition */
-        }
-        form.active {
-            backdrop-filter: blur(10px); /* Frosted effect when active */
-            background-color: rgba(30, 30, 30, 0.8); /* Dark semi-transparent */
-            box-shadow: 0 0 20px rgba(0, 0, 139, 0.7); /* Initial dark blue glowing effect */
-            opacity: 1; /* Fully visible */
-            transform: scale(1); /* Normal size */
-        }
-        form.highlight {
-            background-color: rgba(0, 0, 255, 0.2); /* Blue glow background */
-            box-shadow: 0 0 30px rgba(0, 0, 255, 0.8); /* Brighter blue glow */
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #bbb; /* Default color */
-            transition: color 1s ease-in-out; /* Smooth transition for text color */
-        }
-        h2.highlight {
-            color: #00BFFF; /* Highlighted blue color */
-            text-shadow: 0 0 10px #00BFFF;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #bbb; /* Light gray for text */
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #444; /* Dark border */
-            border-radius: 5px;
-            background-color: #222; /* Darker input background */
-            color: #fff; /* White text */
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .light {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(0, 0, 139, 0.8), rgba(0, 0, 139, 0) 70%); /* Dark blue light */
-            border-radius: 50%;
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 2s ease-in-out, opacity 2s ease-in-out;
-            z-index: -1;
-        }
-        .light.active {
-            transform: scale(15);
-            opacity: 1;
-        }
-        .register-link {
-            margin-top: 20px;
-            display: inline-block;
-            color: #4682B4; /* Steel blue for link */
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-        .register-link:hover {
-            color: #87CEEB; /* Lighter blue on hover */
-            text-shadow: 0 0 10px #4682B4;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px; /* Adjusted for mobile responsiveness */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+form {
+    background-color: rgba(30, 30, 30, 0.8); /* Semi-transparent background */
+    border: 1px solid #444; /* Border for visibility */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #bbb; /* Light gray text */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #bbb; /* Light gray text */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444; /* Border styling */
+    border-radius: 5px;
+    background-color: #222; /* Darker input background */
+    color: #fff; /* White text */
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.register-link {
+    margin-top: 20px;
+    display: inline-block;
+    color: #4682B4; /* Steel blue for link */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.register-link:hover {
+    color: #87CEEB; /* Lighter blue on hover */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    form {
+        padding: 15px; /* Reduced padding for smaller screens */
+    }
+
+    button {
+        font-size: 14px; /* Adjust button font size */
+    }
+
+    .register-link {
+        font-size: 12px; /* Smaller text for links */
+    }
+}
+
     </style>
 </head>
 <body>
